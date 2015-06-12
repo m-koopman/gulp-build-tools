@@ -27,7 +27,14 @@
   },
   "files": [
     "index.js",
-    "lib/"
+    "build.js",
+    "images.js",
+    "index.js",
+    "livereload.js",
+    "scripts.js",
+    "static.js",
+    "style.js",
+    "template.js"
   ],
   "dependencies": {
     "babelify": "^6.1.2",

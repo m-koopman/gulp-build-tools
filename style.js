@@ -22,7 +22,8 @@ function sassErrorHandler(e) {
 
 function sassSuccessHandler(data) {
     var filename = path.relative(__dirname, data.base);
-    filename = filename.replace("..", ".");
+
+    file_name = file_name.replace(/..\//g, "");
 
     build.log("style ", gutil.colors.cyan( filename ), "compiled");
 }

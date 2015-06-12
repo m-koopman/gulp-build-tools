@@ -16,7 +16,7 @@ function notifyLiveReload(event) {
 
     var file_name = require('path').relative(__dirname, event.path);
 
-    file_name = file_name.replace("..", ".");
+    file_name = file_name.replace(/\.\.\//g, "");
 
     build.log( "reload", gutil.colors.cyan( file_name ), "changed, reloading page" );
 

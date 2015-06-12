@@ -6,11 +6,7 @@ var gulp = require('gulp'),
 var Static = {};
 
 Static.copy = function(src_globs, dest_folder, label) {
-    var globs_string = String(src_globs);
-    if (globs_string[ 0 ] == '[') {
-        globs_string = globs_string.substring(1, globs_string.length - 1);
-    }
-    label = label || globs_string;
+    label = label || build.globsToString(src_globs);
 
     copyComplete = function() {
         build.log( "static",

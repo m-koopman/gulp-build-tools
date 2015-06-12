@@ -36,4 +36,13 @@ Build.error = function(title, message) {
         }));
 }
 
+Build.globsToString = function(globArray) {
+    var globs_string = String(globArray);
+    if (globs_string[ 0 ] == '[') {
+        globs_string = globs_string.substring(1, globs_string.length - 1);
+    }
+
+    return globs_string;
+}
+
 module.exports = Build;

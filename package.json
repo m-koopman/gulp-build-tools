@@ -1,0 +1,49 @@
+{
+  "name": "gulp-build",
+  "description": "Internal build tools for gulp.",
+  "version": "1.0.0",
+  "author": "Max Koopman",
+  "contributors": [
+    "Ben Follington",
+    "Kanye"
+  ],
+  "license": "MIT",
+  "repository": "m-koopman/gulp-build",
+  "homepage": "https://github.com/m-koopman/gulp-build",
+  "keywords": [
+    "gulp",
+    "build",
+    "gulp-build",
+    "gulp-",
+    "-build",
+    "lp-buil",
+    "node",
+    "npm",
+    "js",
+    "javascript"
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "files": [
+    "index.js",
+    "lib/"
+  ],
+  "dependencies": {
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "dateformat": "^1.0.11",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.5",
+    "tiny-lr": "^0.1.5",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.2"
+  }
+}

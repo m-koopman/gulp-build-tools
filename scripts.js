@@ -55,11 +55,12 @@ Bundle.bundle = function(options) {
     options.compress = options.compress || false;
     options.babel = options.babel || false;
     options.watch = options.watch || false;
+    options.standalone = options.standalone || false;
 
     options.reference_dependencies = options.reference_dependencies || false;
     options.include_dependencies = options.include_dependencies || false;
 
-    var bundler = browserify({
+    var bundle_options = {
         entries: options.entries,
         paths: options.paths,
         debug: options.debug,
@@ -68,7 +69,12 @@ Bundle.bundle = function(options) {
         cache: {},
         packageCache: {},
         fullPaths: true
-    });
+    }
+
+    if ( standalone ) {
+        bundle_options.standalone = options.standalone;
+    }
+    var bundler = browserify(bundle_options);
 
     if ( options.reference_dependencies ) {
         for ( var i = 0; i < options.reference_dependencies.length; i++ ) {

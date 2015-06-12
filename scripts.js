@@ -71,7 +71,7 @@ Bundle.bundle = function(options) {
         fullPaths: true
     }
 
-    if ( standalone ) {
+    if ( options.standalone ) {
         bundle_options.standalone = options.standalone;
     }
     var bundler = browserify(bundle_options);

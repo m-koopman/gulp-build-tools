@@ -5,9 +5,9 @@ var gulp = require('gulp'),
 
 var jade = require('gulp-jade');
 
-var HTML = {};
+var Template = {};
 
-HTML.jade = function(src_globs, dest_folder, label) {
+Template.jade = function(src_globs, dest_folder, label) {
     label = label || build.globsToString(src_globs);
 
     jadeComplete = function() {
@@ -24,4 +24,4 @@ HTML.jade = function(src_globs, dest_folder, label) {
         .pipe( gulp.dest( dest_folder ).on('finish', jadeComplete) );
 }
 
-module.exports = HTML;
+module.exports = Template;

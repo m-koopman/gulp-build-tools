@@ -21,11 +21,11 @@ function sassErrorHandler(e) {
 }
 
 function sassSuccessHandler(data) {
-    var filename = path.relative(__dirname, data.base);
+    var file_name = path.relative(__dirname, data.base);
 
     file_name = file_name.replace(/..\//g, "");
 
-    build.log("style ", gutil.colors.cyan( filename ), "compiled");
+    build.log("style ", gutil.colors.cyan( file_name ), "compiled");
 }
 
 Style.sass = function(src_glob, dest_folder, options) {

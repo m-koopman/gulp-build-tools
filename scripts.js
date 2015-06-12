@@ -87,7 +87,7 @@ Bundle.bundle = function(options) {
     }
 
     bundler.on('time', function(time) {
-        build.log( "scripts",
+        build.log( "script",
             gutil.colors.cyan( options.dest_folder + options.dest_filename ),
             "built in",
             gutil.colors.magenta( time + "ms" ) );
@@ -114,7 +114,7 @@ Bundle.bundle = function(options) {
         bundler = watchify( bundler );
         bundler.on('update', bundle);
     } else {
-        build.log( "scripts",
+        build.log( "script",
             gutil.colors.cyan( options.dest_folder + options.dest_filename ), "building statically" );
     }
 

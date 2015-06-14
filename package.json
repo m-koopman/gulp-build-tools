@@ -1,5 +1,5 @@
 {
-  "name": "gulp-build",
+  "name": "gulp-build-tools",
   "description": "Internal build tools for gulp.",
   "version": "1.0.0",
   "author": "Max Koopman",
@@ -13,13 +13,10 @@
   "keywords": [
     "gulp",
     "build",
-    "gulp-build",
-    "gulp-",
-    "-build",
-    "lp-buil",
     "node",
-    "npm",
-    "js",
+    "browserify",
+    "sass",
+    "jade",
     "javascript"
   ],
   "engines": {

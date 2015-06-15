@@ -27,12 +27,12 @@ function notifyLiveReload(event) {
     });
 }
 
-LiveReload.init =  function(paths, port) {
+LiveReload.init =  function(globs, port) {
     port = port || 35729;
     livereload = tinylr( );
     livereload.listen( port );
 
-    gulp.watch( paths, notifyLiveReload );
+    gulp.watch( globs, notifyLiveReload );
 }
 
 module.exports = LiveReload;

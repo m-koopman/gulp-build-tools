@@ -1,7 +1,7 @@
 {
   "name": "gulp-build-tools",
   "description": "Internal build tools for gulp.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Max Koopman",
   "contributors": [
     "Ben Follington",

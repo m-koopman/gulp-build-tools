@@ -1,3 +1,5 @@
+
+
 var build = require('./build.js');
 
 var gulp = require('gulp'),
@@ -11,23 +13,6 @@ var path = require('path');
 
 var Style = {};
 
-function sassErrorHandler(e) {
-    build.log("!style ", e.messageFormatted);
-
-    var lines = e.message.split("\n");
-    if ( lines.length > 1 ) {
-        build.error(lines[ 0 ], lines[ 1 ]);
-    }
-}
-
-function sassSuccessHandler(data) {
-    var file_name = path.relative(__dirname, data.base);
-
-    file_name = file_name.replace(/..\//g, "");
-
-    build.log("style ", gutil.colors.cyan( file_name ), "compiled");
-}
-
 Style.sass = function(src_glob, dest_folder, options) {
     options.autoprefix = options.autoprefix || false;
     options.entries = options.entries || src_glob;
@@ -35,7 +20,25 @@ Style.sass = function(src_glob, dest_folder, options) {
     options.compress = options.compress || false;
     options.sourcemaps = options.sourcemaps || false;
 
-    function compileSass() {
+
+    function sassErrorHandler(e) {
+        build.log("!style ", e.messageFormatted);
+
+        var lines = e.message.split("\n");
+        if ( lines.length > 1 ) {
+            build.error(lines[ 0 ], lines[ 1 ]);
+        }
+    }
+
+    function sassSuccessHandler(data) {
+        var file_name = path.relative(__dirname, data.base);
+
+        file_name = file_name.replace(/..\//g, "");
+
+        build.log("style ", gutil.colors.cyan( file_name ), "compiled");
+    }
+
+    function sassCompile() {
         gulp.src(options.entries)
             .pipe( options.sourcemaps ? sourcemaps.init() : gutil.noop() )
 
@@ -48,10 +51,10 @@ Style.sass = function(src_glob, dest_folder, options) {
             .pipe(gulp.dest(dest_folder).on('data', sassSuccessHandler));
     }
 
-    compileSass();
+    sassCompile();
 
     if ( options.watch ) {
-        gulp.watch(src_glob, compileSass);
+        gulp.watch(src_glob, sassCompile);
     }
 }
 

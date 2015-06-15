@@ -1,15 +1,15 @@
+"use strict";
 
+var build = require("./build.js");
 
-var build = require('./build.js');
+var gulp = require("gulp"),
+    gutil = require("gulp-util");
 
-var gulp = require('gulp'),
-    gutil = require('gulp-util');
+var sass = require("gulp-sass"),
+    autoprefixer = require("gulp-autoprefixer"),
+    sourcemaps = require("gulp-sourcemaps");
 
-var sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps');
-
-var path = require('path');
+var path = require("path");
 
 var Style = {};
 
@@ -43,12 +43,12 @@ Style.sass = function(src_glob, dest_folder, options) {
             .pipe( options.sourcemaps ? sourcemaps.init() : gutil.noop() )
 
                 .pipe(sass(
-                    (options.compress ? {outputStyle: 'compressed'} : {}))
-                    .on( 'error', sassErrorHandler ).on( 'complete', sassSuccessHandler ))
+                    (options.compress ? {outputStyle: "compressed"} : {}))
+                    .on( "error", sassErrorHandler ).on( "complete", sassSuccessHandler ))
                 .pipe( options.autoprefix ? autoprefixer( options.autoprefix ) : gutil.noop() )
 
             .pipe( options.sourcemaps ? sourcemaps.write() : gutil.noop() )
-            .pipe(gulp.dest(dest_folder).on('data', sassSuccessHandler));
+            .pipe(gulp.dest(dest_folder).on("data", sassSuccessHandler));
     }
 
     sassCompile();
@@ -56,6 +56,6 @@ Style.sass = function(src_glob, dest_folder, options) {
     if ( options.watch ) {
         gulp.watch(src_glob, sassCompile);
     }
-}
+};
 
 module.exports = Style;

@@ -8,8 +8,8 @@
     "Kanye"
   ],
   "license": "MIT",
-  "repository": "m-koopman/gulp-build",
-  "homepage": "https://github.com/m-koopman/gulp-build",
+  "repository": "m-koopman/gulp-build-tools",
+  "homepage": "https://github.com/m-koopman/gulp-build-tools",
   "keywords": [
     "gulp",
     "build",

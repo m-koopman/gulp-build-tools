@@ -1,25 +1,27 @@
-var build = require('./build.js');
+"use strict";
 
-var gulp = require('gulp'),
-    gutil = require('gulp-util');
+var build = require("./build.js");
+
+var gulp = require("gulp"),
+    gutil = require("gulp-util");
 
 var babelify = require("babelify"),
     uglify = require("gulp-uglify");
 
-var sourcemaps = require('gulp-sourcemaps'),
-    browserify = require('browserify'),
-    watchify = require('watchify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
-    rename = require('gulp-rename');
+var sourcemaps = require("gulp-sourcemaps"),
+    browserify = require("browserify"),
+    watchify = require("watchify"),
+    source = require("vinyl-source-stream"),
+    buffer = require("vinyl-buffer"),
+    rename = require("gulp-rename");
 
-function handleBrowserifyErrors(e) {
+function handleBrowserifyErrors() {
     var error = Array.prototype.slice.call( arguments )[ 0 ];
 
     if ( error._babel ) {
         error.source = "babel ";
 
-        var filename = error.filename.split('/').slice(-1)[0];
+        var filename = error.filename.split("/").slice(-1)[0];
 
         var summary = "Error at " + gutil.colors.green( error.loc.line + ":" + error.loc.column ) + " of " + gutil.colors.cyan( filename );
 
@@ -34,7 +36,7 @@ function handleBrowserifyErrors(e) {
         build.log( "!bundle", error.message );
     }
 
-    this.emit('end');
+    this.emit("end");
 }
 
 var Script = {};
@@ -69,21 +71,21 @@ Script.bundle = function(options) {
         cache: {},
         packageCache: {},
         fullPaths: true
-    }
+    };
 
     if ( options.standalone ) {
         bundle_options.standalone = options.standalone;
     }
     var bundler = browserify(bundle_options);
 
+    var i = 0;
     if ( options.reference_dependencies ) {
-        for ( var i = 0; i < options.reference_dependencies.length; i++ ) {
+        for ( i = 0; i < options.reference_dependencies.length; i++ ) {
             bundler.external( options.reference_dependencies[ i ] );
         }
     }
-
     if ( options.include_dependencies ) {
-        for ( var i = 0; i < options.include_dependencies.length; i++ ) {
+        for ( i = 0; i < options.include_dependencies.length; i++ ) {
             bundler.require( options.include_dependencies[ i ] );
         }
     }
@@ -92,7 +94,7 @@ Script.bundle = function(options) {
         bundler.transform( babelify );
     }
 
-    bundler.on('time', function(time) {
+    bundler.on("time", function(time) {
         build.log( "script",
             gutil.colors.cyan( options.dest_folder + options.dest_filename ),
             "built in",
@@ -102,7 +104,7 @@ Script.bundle = function(options) {
     var bundle = function() {
         return bundler
             .bundle( )
-            .on( 'error', handleBrowserifyErrors )
+            .on( "error", handleBrowserifyErrors )
             .pipe( source( options.dest_filename ) )
             .pipe( buffer( ) )
             .pipe( sourcemaps.init( { loadMaps: true } ) )
@@ -118,7 +120,7 @@ Script.bundle = function(options) {
 
     if (options.watch) {
         bundler = watchify( bundler );
-        bundler.on('update', bundle);
+        bundler.on("update", bundle);
     } else {
         build.log( "script",
             gutil.colors.cyan( options.dest_folder + options.dest_filename ), "building statically" );
@@ -126,6 +128,5 @@ Script.bundle = function(options) {
 
     return bundle();
 };
-
 
 module.exports = Script;

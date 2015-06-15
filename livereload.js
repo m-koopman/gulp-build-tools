@@ -1,20 +1,22 @@
-var build = require('./build.js');
+"use strict";
 
-var gulp = require('gulp'),
-    gutil = require('gulp-util');
+var build = require("./build.js");
 
-var tinylr = require('tiny-lr');
+var gulp = require("gulp"),
+    gutil = require("gulp-util");
+
+var tinylr = require("tiny-lr");
 
 var livereload;
 
-LiveReload = {};
+var LiveReload = {};
 
 function notifyLiveReload(event) {
     if ( !livereload ) {
         return;
     }
 
-    var file_name = require('path').relative(__dirname, event.path);
+    var file_name = require("path").relative(__dirname, event.path);
 
     file_name = file_name.replace(/\.\.\//g, "");
 
@@ -33,7 +35,7 @@ LiveReload.init =  function(globs, port) {
     livereload.listen( port );
 
     gulp.watch( globs, notifyLiveReload );
-}
+};
 
 module.exports = LiveReload;
 

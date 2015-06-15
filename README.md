@@ -6,7 +6,7 @@ A suite of internal build tools for creating web applications with `gulp`.
 
 The latest release of this module can be installed from `npm` with
 
-`npm install gulp-build-tools`.
+`npm install gulp-build-tools --save-dev`.
 
 Alternatively, the latest build of this module can be installed directly from `GitHub` with
 
@@ -21,7 +21,7 @@ The tools are split into a number of modules, which can be required individually
 ```
 var build = require("gulp-build-tools/build"),
     reload = require("gulp-build-tools/livereload"),
-    scripts = require("gulp-build-tools/scripts"),
+    script = require("gulp-build-tools/script"),
     static = require("gulp-build-tools/static"),
     style = require("gulp-build-tools/style"),
     template = require("gulp-build-tools/template");
@@ -60,11 +60,11 @@ Handles the dispatching of live-reload events to watching browsers. Relies on `t
 
 Starts a live-reload server on the specified `port`, which will issue a reload event when any file matching `globs` is modified.
 
-### Scripts.js
+### Script.js
 
 Handles the compilation of script files within the project.
 
-**Scripts.bundle(options)**
+**Script.bundle(options)**
 
 Compiles the source files into a single javascript bundle, as specified by the options. The options can be specified as follows.
 

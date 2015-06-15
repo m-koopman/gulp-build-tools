@@ -37,9 +37,9 @@ function handleBrowserifyErrors(e) {
     this.emit('end');
 }
 
-var Bundle = {};
+var Scripts = {};
 
-Bundle.bundle = function(options) {
+Scripts.bundle = function(options) {
 
     if ( options.entries === undefined ) {
         return false;
@@ -128,4 +128,4 @@ Bundle.bundle = function(options) {
 };
 
 
-module.exports = Bundle;
+module.exports = Scripts;

@@ -33,7 +33,7 @@ Style.sass = function(src_glob, dest_folder, options) {
     function sassSuccessHandler(data) {
         var file_name = path.relative(__dirname, data.base);
 
-        file_name = file_name.replace(/..\//g, "");
+        file_name = file_name.replace(/\.\.\//g, "");
 
         build.log("style ", gutil.colors.cyan( file_name ), "compiled");
     }

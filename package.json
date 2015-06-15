@@ -1,7 +1,7 @@
 {
   "name": "gulp-build-tools",
   "description": "Internal build tools for gulp.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Max Koopman",
   "contributors": [
     "Ben Follington",
@@ -28,7 +28,7 @@
     "images.js",
     "index.js",
     "livereload.js",
-    "scripts.js",
+    "script.js",
     "static.js",
     "style.js",
     "template.js"

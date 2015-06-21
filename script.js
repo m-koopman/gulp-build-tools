@@ -6,6 +6,7 @@ var gulp = require("gulp"),
     gutil = require("gulp-util");
 
 var babelify = require("babelify"),
+    reactify = require("reactify"),
     uglify = require("gulp-uglify");
 
 var sourcemaps = require("gulp-sourcemaps"),
@@ -56,6 +57,7 @@ Script.bundle = function(options) {
     options.dest_filename = options.dest_filename || "app.js";
     options.compress = options.compress || false;
     options.babel = options.babel || false;
+    options.reactify = options.reactify || false;
     options.watch = options.watch || false;
     options.standalone = options.standalone || false;
 
@@ -92,6 +94,10 @@ Script.bundle = function(options) {
 
     if ( options.babel === true ) {
         bundler.transform( babelify );
+    }
+
+    if ( options.reactify === true ) {
+        bundler.transform( reactify );
     }
 
     bundler.on("time", function(time) {

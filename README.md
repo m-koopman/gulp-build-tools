@@ -75,6 +75,7 @@ Compiles the source files into a single javascript bundle, as specified by the o
 - **options.dest_filename** `String` - The final filename of the bundle. Defaults to `"app.js"`.
 - **options.compress** `Boolean` - Whether or not to minify the output bundle. Significantly reduces bundle size, but can increase build time. Defaults to `false`.
 - **options.babel** `Boolean` - Whether or not to transpile the source from ES6 to ES5 using `Babel` before bundling. Defaults to `false`.
+- **options.reactify** `Boolean` - Whether or not to run the [reactify](https://www.npmjs.com/package/reactify) transform on the bundle. Adds support for JSX and React features. Defaults to `false`.
 - **options.watch** `Boolean` - Whether or not to watch for changes in any referenced source files, and trigger rebuilds of the bundle. Defaults to `false`.
 - **options.standalone** `String` - An optional name for the standalone bundle. Will not be exposed as standalone if no name is provided.
 - **options.reference_dependies** `List(String)` - A list of dependencies to reference from within the bundle. Any dependency provided in this list will not be included in the bundle when referenced with a require. Defaults to none.

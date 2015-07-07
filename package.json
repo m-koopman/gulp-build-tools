@@ -1,7 +1,7 @@
 {
   "name": "bens-gulp-build-tools",
   "description": "Ben's fork of the internal build tools for gulp.",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "Ben Follington",
   "contributors": [
     "Max Koopman"

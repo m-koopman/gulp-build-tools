@@ -5,9 +5,7 @@ var build = require("./build.js");
 var gulp = require("gulp"),
     gutil = require("gulp-util");
 
-var babelify = require("babelify"),
-    reactify = require("reactify"),
-    uglify = require("gulp-uglify");
+var uglify = require("gulp-uglify");
 
 var sourcemaps = require("gulp-sourcemaps"),
     browserify = require("browserify"),

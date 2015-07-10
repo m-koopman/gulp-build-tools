@@ -23,8 +23,13 @@ try {
     var watchify = false;
 }
 
-var browserify = require("browserify"),
-    source = require("vinyl-source-stream"),
+try {
+    var browserify = require("browserify");
+} catch(err) {
+    var browserify = false;
+}
+
+var source = require("vinyl-source-stream"),
     buffer = require("vinyl-buffer"),
     rename = require("gulp-rename");
 
@@ -55,6 +60,11 @@ function handleBrowserifyErrors() {
 var Script = {};
 
 Script.bundle = function(options) {
+
+    if (!browserify) {
+        console.error("browserify is not installed");
+        return;
+    }
 
     if ( options.entries === undefined ) {
         return false;

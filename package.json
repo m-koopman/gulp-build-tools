@@ -1,7 +1,7 @@
 {
   "name": "bens-gulp-build-tools",
   "description": "Ben's fork of the internal build tools for gulp.",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "Ben Follington",
   "contributors": [
     "Max Koopman"
@@ -33,7 +33,6 @@
     "template.js"
   ],
   "dependencies": {
-    "browserify": "^10.2.4",
     "dateformat": "^1.0.11",
     "gulp": "^3.9.0",
 
@@ -46,6 +45,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "optionalPeerDependencies": {
+      "browserify": "^10.2.4",
       "watchify": "^3.2.2",
       "gulp-jade": "^1.0.1",
       "gulp-sass": "^2.0.1",

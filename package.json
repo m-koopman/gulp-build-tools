@@ -1,7 +1,7 @@
 {
   "name": "bens-gulp-build-tools",
   "description": "Ben's fork of the internal build tools for gulp.",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "author": "Ben Follington",
   "contributors": [
     "Max Koopman"
@@ -35,22 +35,21 @@
   "dependencies": {
     "dateformat": "^1.0.11",
     "gulp": "^3.9.0",
-
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
-
     "gulp-util": "^3.0.5",
     "tiny-lr": "^0.1.5",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "optionalPeerDependencies": {
-      "browserify": "^10.2.4",
-      "watchify": "^3.2.2",
-      "gulp-jade": "^1.0.1",
-      "gulp-sass": "^2.0.1",
-      "gulp-sourcemaps": "^1.5.2",
-      "gulp-uglify": "^1.2.0",
-      "gulp-autoprefixer": "^2.3.1"
+    "browserify": "^10.2.4",
+    "watchify": "^3.2.2",
+    "gulp-jade": "^1.0.1",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-imagemin": "^2.3.0"
   }
 }

@@ -5,11 +5,25 @@ var build = require("./build.js");
 var gulp = require("gulp"),
     gutil = require("gulp-util");
 
-var uglify = require("gulp-uglify");
+try {
+    var uglify = require("gulp-uglify");
+} catch(err) {
+    var uglify = false;
+}
 
-var sourcemaps = require("gulp-sourcemaps"),
-    browserify = require("browserify"),
-    watchify = require("watchify"),
+try {
+    var sourcemaps = require("gulp-sourcemaps");
+} catch(err) {
+    var sourcemaps = false;
+}
+
+try {
+    var watchify = require("watchify");
+} catch(err) {
+    var watchify = false;
+}
+
+var browserify = require("browserify"),
     source = require("vinyl-source-stream"),
     buffer = require("vinyl-buffer"),
     rename = require("gulp-rename");
@@ -57,6 +71,20 @@ Script.bundle = function(options) {
     options.transforms = options.transforms || [];
     options.watch = options.watch || false;
     options.standalone = options.standalone || false;
+
+    if (options.sourcemaps === undefined) {
+        options.sourcemaps = true;
+    }
+
+    if (options.compress && !uglify) {
+        console.error("gulp-uglify is not installed, disabled options.compress or install it.");
+        return;
+    }
+
+    if (options.sourcemaps && !sourcemaps) {
+        console.error("gulp-sourcemaps is not installed, disable options.sourcemaps or install it.");
+        return;
+    }
 
     options.reference_dependencies = options.reference_dependencies || false;
     options.include_dependencies = options.include_dependencies || false;
@@ -113,11 +141,15 @@ Script.bundle = function(options) {
                 .pipe( gulp.dest( options.dest_folder ) )
 
             // Pipe out the sourcemaps
-            .pipe( sourcemaps.write( "./" ) )
+            .pipe( options.sourcemaps ? sourcemaps.write( "./" ) : gutil.noop() )
             .pipe( gulp.dest( options.dest_folder ) );
     };
 
     if (options.watch) {
+        if (!watchify) {
+            console.error("watchify is not installed, disable options.watch or install it.");
+            return;
+        }
         bundler = watchify( bundler );
         bundler.on("update", bundle);
     } else {

@@ -5,11 +5,20 @@ var build = require("./build.js");
 var gulp = require("gulp"),
     gutil = require("gulp-util");
 
-var jade = require("gulp-jade");
+try {
+    var jade = require("gulp-jade");
+} catch(err) {
+    var jade = false;
+}
 
 var Template = {};
 
 Template.jade = function(src_globs, dest_folder, label) {
+    if (!jade) {
+        console.error("gulp-jade is not installed");
+        return;
+    }
+
     label = label || build.globsToString(src_globs);
 
     var jadeComplete = function() {

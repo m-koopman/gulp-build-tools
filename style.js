@@ -5,21 +5,50 @@ var build = require("./build.js");
 var gulp = require("gulp"),
     gutil = require("gulp-util");
 
-var sass = require("gulp-sass"),
-    autoprefixer = require("gulp-autoprefixer"),
-    sourcemaps = require("gulp-sourcemaps");
+try {
+    var sass = require("gulp-sass");
+} catch(err) {
+    var sass = false;
+}
+
+try {
+    var autoprefixer = require("gulp-autoprefixer");
+} catch(err) {
+    var autoprefixer = false;
+}
+
+try {
+    var sourcemaps = require("gulp-sourcemaps");
+} catch(err) {
+    var sourcemaps = false;
+}
 
 var path = require("path");
 
 var Style = {};
 
 Style.sass = function(src_glob, dest_folder, options) {
+
+    if (!sass) {
+        console.error("gulp-sass is not installed");
+        return;
+    }
+
     options.autoprefix = options.autoprefix || false;
     options.entries = options.entries || src_glob;
     options.watch = options.watch || false;
     options.compress = options.compress || false;
     options.sourcemaps = options.sourcemaps || false;
 
+    if (options.autoprefix && !autoprefixer) {
+        console.error("gulp-autoprefixer is not installed, disable options.autoprefix or install it.");
+        return;
+    }
+
+    if (options.sourcemaps && !sourcemaps) {
+        console.error("gulp-sourcemaps is not installed, disabled options.sourcemaps or install it.");
+        return;
+    }
 
     function sassErrorHandler(e) {
         build.log("!style ", e.messageFormatted);

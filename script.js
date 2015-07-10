@@ -62,7 +62,7 @@ var Script = {};
 Script.bundle = function(options) {
 
     if (!browserify) {
-        console.error("browserify is not installed");
+        throw new Error("browserify is not installed");
         return;
     }
 
@@ -87,12 +87,12 @@ Script.bundle = function(options) {
     }
 
     if (options.compress && !uglify) {
-        console.error("gulp-uglify is not installed, disabled options.compress or install it.");
+        throw new Error("gulp-uglify is not installed, disabled options.compress or install it.");
         return;
     }
 
     if (options.sourcemaps && !sourcemaps) {
-        console.error("gulp-sourcemaps is not installed, disable options.sourcemaps or install it.");
+        throw new Error("gulp-sourcemaps is not installed, disable options.sourcemaps or install it.");
         return;
     }
 
@@ -157,7 +157,7 @@ Script.bundle = function(options) {
 
     if (options.watch) {
         if (!watchify) {
-            console.error("watchify is not installed, disable options.watch or install it.");
+            throw new Error("watchify is not installed, disable options.watch or install it.");
             return;
         }
         bundler = watchify( bundler );

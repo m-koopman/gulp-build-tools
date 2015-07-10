@@ -30,7 +30,7 @@ var Style = {};
 Style.sass = function(src_glob, dest_folder, options) {
 
     if (!sass) {
-        console.error("gulp-sass is not installed");
+        throw new Error("gulp-sass is not installed");
         return;
     }
 
@@ -41,12 +41,12 @@ Style.sass = function(src_glob, dest_folder, options) {
     options.sourcemaps = options.sourcemaps || false;
 
     if (options.autoprefix && !autoprefixer) {
-        console.error("gulp-autoprefixer is not installed, disable options.autoprefix or install it.");
+        throw new Error("gulp-autoprefixer is not installed, disable options.autoprefix or install it.");
         return;
     }
 
     if (options.sourcemaps && !sourcemaps) {
-        console.error("gulp-sourcemaps is not installed, disabled options.sourcemaps or install it.");
+        throw new Error("gulp-sourcemaps is not installed, disabled options.sourcemaps or install it.");
         return;
     }
 

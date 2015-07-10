@@ -15,7 +15,7 @@ var Template = {};
 
 Template.jade = function(src_globs, dest_folder, label) {
     if (!jade) {
-        console.error("gulp-jade is not installed");
+        throw new Error("gulp-jade is not installed");
         return;
     }
 

@@ -5,11 +5,21 @@ var build = require("./build.js");
 var gulp = require("gulp"),
     gutil = require("gulp-util");
 
-var imagemin = require("gulp-imagemin");
+try {
+    var imagemin = require("gulp-imagemin");
+} catch(err) {
+    var imagemin = false;
+}
 
 var Images = {};
 
 Images.compress = function(src_globs, dest_folder, label) {
+
+    if (!imagemin) {
+        throw new Error("gulp-imagemin is not installed");
+        return;
+    }
+
     label = label || build.globsToString(src_globs);
 
     var compressComplete = function() {

@@ -5,14 +5,31 @@ var build = require("./build.js");
 var gulp = require("gulp"),
     gutil = require("gulp-util");
 
-var babelify = require("babelify"),
-    reactify = require("reactify"),
-    uglify = require("gulp-uglify");
+try {
+    var uglify = require("gulp-uglify");
+} catch(err) {
+    var uglify = false;
+}
 
-var sourcemaps = require("gulp-sourcemaps"),
-    browserify = require("browserify"),
-    watchify = require("watchify"),
-    source = require("vinyl-source-stream"),
+try {
+    var sourcemaps = require("gulp-sourcemaps");
+} catch(err) {
+    var sourcemaps = false;
+}
+
+try {
+    var watchify = require("watchify");
+} catch(err) {
+    var watchify = false;
+}
+
+try {
+    var browserify = require("browserify");
+} catch(err) {
+    var browserify = false;
+}
+
+var source = require("vinyl-source-stream"),
     buffer = require("vinyl-buffer"),
     rename = require("gulp-rename");
 
@@ -44,6 +61,11 @@ var Script = {};
 
 Script.bundle = function(options) {
 
+    if (!browserify) {
+        throw new Error("browserify is not installed");
+        return;
+    }
+
     if ( options.entries === undefined ) {
         return false;
     }
@@ -56,10 +78,23 @@ Script.bundle = function(options) {
 
     options.dest_filename = options.dest_filename || "app.js";
     options.compress = options.compress || false;
-    options.babel = options.babel || false;
-    options.reactify = options.reactify || false;
+    options.transforms = options.transforms || [];
     options.watch = options.watch || false;
     options.standalone = options.standalone || false;
+
+    if (options.sourcemaps === undefined) {
+        options.sourcemaps = true;
+    }
+
+    if (options.compress && !uglify) {
+        throw new Error("gulp-uglify is not installed, disabled options.compress or install it.");
+        return;
+    }
+
+    if (options.sourcemaps && !sourcemaps) {
+        throw new Error("gulp-sourcemaps is not installed, disable options.sourcemaps or install it.");
+        return;
+    }
 
     options.reference_dependencies = options.reference_dependencies || false;
     options.include_dependencies = options.include_dependencies || false;
@@ -92,13 +127,9 @@ Script.bundle = function(options) {
         }
     }
 
-    if ( options.babel === true ) {
-        bundler.transform( babelify );
-    }
-
-    if ( options.reactify === true ) {
-        bundler.transform( reactify );
-    }
+    options.transforms.forEach( function(transform) {
+        bundler.transform(transform);
+    });
 
     bundler.on("time", function(time) {
         build.log( "script",
@@ -120,11 +151,15 @@ Script.bundle = function(options) {
                 .pipe( gulp.dest( options.dest_folder ) )
 
             // Pipe out the sourcemaps
-            .pipe( sourcemaps.write( "./" ) )
+            .pipe( options.sourcemaps ? sourcemaps.write( "./" ) : gutil.noop() )
             .pipe( gulp.dest( options.dest_folder ) );
     };
 
     if (options.watch) {
+        if (!watchify) {
+            throw new Error("watchify is not installed, disable options.watch or install it.");
+            return;
+        }
         bundler = watchify( bundler );
         bundler.on("update", bundle);
     } else {

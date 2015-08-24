@@ -1,14 +1,14 @@
 {
-  "name": "bens-gulp-build-tools",
-  "description": "Ben's fork of the internal build tools for gulp.",
-  "version": "1.0.11",
-  "author": "Ben Follington",
+  "name": "gulp-build-tools",
+  "description": "Internal build tools for gulp.",
+  "version": "1.0.12",
+  "author": "Max Koopman",
   "contributors": [
-    "Max Koopman"
+    "Ben Follington"
   ],
   "license": "MIT",
-  "repository": "bfollington/gulp-build-tools",
-  "homepage": "https://github.com/bfollington/gulp-build-tools",
+  "repository": "m-koopman/gulp-build-tools",
+  "homepage": "https://github.com/m-koopman/gulp-build-tools",
   "keywords": [
     "gulp",
     "build",

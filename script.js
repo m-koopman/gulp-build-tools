@@ -83,7 +83,7 @@ Script.bundle = function(options) {
     options.standalone = options.standalone || false;
 
     if (options.sourcemaps === undefined) {
-        options.sourcemaps = true;
+        options.sourcemaps = false;
     }
 
     if (options.compress && !uglify) {
@@ -102,7 +102,7 @@ Script.bundle = function(options) {
     var bundle_options = {
         entries: options.entries,
         paths: options.paths,
-        debug: true,
+        debug: options.debug || options.sourcemaps,
 
         // For watchify...
         cache: {},

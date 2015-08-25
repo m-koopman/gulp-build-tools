@@ -83,7 +83,7 @@ Script.bundle = function(options) {
     options.standalone = options.standalone || false;
 
     if (options.sourcemaps === undefined) {
-        options.sourcemaps = true;
+        options.sourcemaps = false;
     }
 
     if (options.compress && !uglify) {
@@ -102,7 +102,7 @@ Script.bundle = function(options) {
     var bundle_options = {
         entries: options.entries,
         paths: options.paths,
-        debug: options.debug,
+        debug: options.debug || options.sourcemaps,
 
         // For watchify...
         cache: {},
@@ -113,20 +113,26 @@ Script.bundle = function(options) {
     if ( options.standalone ) {
         bundle_options.standalone = options.standalone;
     }
+
+    // If we are referencing dependencies from another bundle, then do not include them here
+    if ( options.reference_dependencies ) {
+        console.log("Disabling bundling of external modules");
+        bundle_options.bundleExternal = false;
+    }
+
     var bundler = browserify(bundle_options);
 
-    var i = 0;
+    // Any modules that are going to come from another bundle are added as external here (i.e. for an app bundle)
     if ( options.reference_dependencies ) {
-        for ( i = 0; i < options.reference_dependencies.length; i++ ) {
-            bundler.external( options.reference_dependencies[ i ] );
-        }
-    }
-    if ( options.include_dependencies ) {
-        for ( i = 0; i < options.include_dependencies.length; i++ ) {
-            bundler.require( options.include_dependencies[ i ] );
-        }
+        bundler.external( options.reference_dependencies );
     }
 
+    // Any modules that need to be included in this bundle are added here (i.e. for a lib bundle)
+    if ( options.include_dependencies ) {
+        bundler.require( options.include_dependencies );
+    }
+
+    // Apply all transforms
     options.transforms.forEach( function(transform) {
         bundler.transform(transform);
     });
@@ -144,7 +150,7 @@ Script.bundle = function(options) {
             .on( "error", handleBrowserifyErrors )
             .pipe( source( options.dest_filename ) )
             .pipe( buffer( ) )
-            .pipe( sourcemaps.init( { loadMaps: true } ) )
+            .pipe( options.sourcemaps ? sourcemaps.init( { loadMaps: true } ) : gutil.noop() )
 
                 .pipe( options.compress ? uglify() : gutil.noop() )
                 .pipe( rename( options.dest_filename ) )

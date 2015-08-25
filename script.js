@@ -114,12 +114,6 @@ Script.bundle = function(options) {
         bundle_options.standalone = options.standalone;
     }
 
-    // If we are referencing dependencies from another bundle, then do not include them here
-    if ( options.reference_dependencies ) {
-        console.log("Disabling bundling of external modules");
-        bundle_options.bundleExternal = false;
-    }
-
     var bundler = browserify(bundle_options);
 
     // Any modules that are going to come from another bundle are added as external here (i.e. for an app bundle)
